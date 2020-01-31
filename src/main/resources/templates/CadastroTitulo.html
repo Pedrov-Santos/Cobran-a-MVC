@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+
+
+<section layout:fragment="conteudo">
+
+	<form class="card" method="POST" action="/titulos"
+		th:object="${titulo}">
+
+		<input type = "hidden" th:field="*{codigo}"/>
+		
+		<div class="alert alert-success"
+			th:if="${! #strings.isEmpty(mensagem)}">
+			<span th:text="${mensagem}">Titulo salvo com sucesso!</span>
+		</div>
+
+		<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+			<div th:each="detailedError : ${#fields.detailedErrors()} ">
+				<span th:text="${detailedError.message}"></span>
+			</div>
+		</div>
+
+
+		<div class="card-body">
+			<h5 class="card-title botao-pesquisa">
+				Novo título <img src="/imagens/7-512.png" width="20" height="20"
+					id="icone3">
+			</h5>
+			<a class="btn btn-link botao-novo" href="/titulos">Pesquisar
+				título já salvo <img src="/imagens/lupa.jpg" width="20" height="20"
+				id="icone2">
+			</a>
+
+		</div>
+
+		<div class="card card-body">
+
+			<div class="form-group row">
+				<label for="descricao" class="col-sm-2 col-form-label text-right">Descrição</label>
+				<div class="col-sm-4">
+					<input type="text" class=" form-control" id='descricao'
+						th:field="*{descricao}" placeholder="ex: Conta de Luz" th:classappend="${#fields.hasErrors('descricao') } ? 'is-invalid'">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="dataVencimento"
+					class="col-sm-2 col-form-label text-right">Data De
+					Vencimento</label>
+				<div class="col-sm-2">
+					<input type="text" class=" form-control" id="dataVencimento"
+						th:field="*{dataVencimento}" placeholder="ex: 22/04/1999" th:classappend="${#fields.hasErrors('dataVencimento') } ? 'is-invalid'">
+				</div>
+			</div>
+			<div class="form-group row"  >
+				<label for="valor" class="col-sm-2 col-form-label text-right" >Valor</label>
+				<div class="col-sm-2">
+					<input type="text" class=" form-control" id="valor" th:field="*{valor}"
+						placeholder="ex: 200,00" th:classappend="${#fields.hasErrors('valor') } ? 'is-invalid'" >
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="status" class="col-sm-2 col-form-label text-right">Status</label>
+				<div class="col-sm-2">
+					<select class=" form-control" name='status'>
+						<option th:each="status : ${todosStatusTitulo}"
+							th:value="${status}" th:text="${status.descricao}"></option>
+					</select>
+				</div>
+			</div>
+
+			<button type="submit" class="btn btn-outline-success col-sm-1"
+				id="botaosalvar">Salvar</button>
+
+		</div>
+	</form>
+</section>
+
+</html>

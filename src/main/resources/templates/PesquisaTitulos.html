@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+<head>
+<title>Pesquisa de Titulo</title>
+</head>
+
+<section layout:fragment="conteudo">
+	<div class="card">
+		<div>
+			<div class="clearfix">
+				<h5 class="card-title botao-pesquisa">Pesquisa De Títulos</h5>
+				<a class="btn btn-link botao-novo" href="/titulos/novo">
+					<button type="button" class="btn btn-outline-primary">Novo
+						título</button>
+				</a> <img src="/imagens/40216.png" width="20" height="20" id="icone">
+			</div>
+
+
+			<div class="card-body">
+				<div id="tabela">
+					<table class="table table-striped table table-bordered">
+						<thead>
+							<tr>
+								<th class="text-center" width="10%">#</th>
+								<th>Descrição</th>
+								<th class="text-center" width="15%">Data De Vencimento</th>
+								<th class="text-right" width="10%">Valor</th>
+								<th class="text-center" width="10%">Status</th>
+								<th width="15%"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each=" titulo : ${titulos}">
+								<td class = "text-center" th:text= "${titulo.codigo}"></td>
+								<td th:text="${titulo.descricao}"></td>
+								<td class="text-center" th:text="${{titulo.dataVencimento}}"></td>
+								<td class="text-right"  th:text="|R$ ${{titulo.valor}}|"></td>
+								<td class="text-center">
+									<button type="button" class="btn btn-sm " th:text="${titulo.status.descricao}"
+										th:classappend="${titulo.pendente ? 'btn-danger' : 'btn-success'}"></button>
+								</td>
+								<td class="text-center">
+									<a class = "btn btn-link btn-xs" th:href="@{/titulos/{codigo}(codigo=${titulo.codigo})}"> 
+									<span  ><img src="/imagens/editar.png" width="25" height="25" id="icone-editar"> </span>
+									</a>
+									
+									<a class="btn btn-link btn-xs" data-toggle="modal" data-target="#excluirModal" th:attr="data-codigo=${titulo.codigo}">
+									<span ><img src="/imagens/excluir.png" width="25" height="25"></span>
+									</a>
+								</td>
+								
+							</tr>
+							<tr>
+								<td colspan="6" th:if="${#lists.isEmpty(titulos)}">Nenhum Título foi encontrado!</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+		<div layout:insert="ExcluirTitulo"></div>
+			</div>
+		</div>
+	</div>
+</section>
+</html>
