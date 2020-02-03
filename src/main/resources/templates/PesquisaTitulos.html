@@ -21,7 +21,7 @@
 
 			<div class="card-body">
 				<div id="tabela">
-					<table class="table table-striped table table-bordered">
+					<table class="table table-striped table table-bordered" >
 						<thead>
 							<tr>
 								<th class="text-center" width="10%">#</th>
@@ -39,16 +39,20 @@
 								<td class="text-center" th:text="${{titulo.dataVencimento}}"></td>
 								<td class="text-right"  th:text="|R$ ${{titulo.valor}}|"></td>
 								<td class="text-center">
-									<button type="button" class="btn btn-sm " th:text="${titulo.status.descricao}"
+									<button type="button" class="btn btn-sm " th:text="${titulo.status.descricao}" style='width: 110px'
 										th:classappend="${titulo.pendente ? 'btn-danger' : 'btn-success'}"></button>
 								</td>
 								<td class="text-center">
-									<a class = "btn btn-link btn-xs" th:href="@{/titulos/{codigo}(codigo=${titulo.codigo})}"> 
+									<a class = "btn btn-link btn-xs" title="Editar" rel="tooltip" data-placement="top" th:href="@{/titulos/{codigo}(codigo=${titulo.codigo})}"> 
 									<span  ><img src="/imagens/editar.png" width="25" height="25" id="icone-editar"> </span>
 									</a>
 									
-									<a class="btn btn-link btn-xs" data-toggle="modal" data-target="#excluirModal" th:attr="data-codigo=${titulo.codigo}">
-									<span ><img src="/imagens/excluir.png" width="25" height="25"></span>
+									<a class="btn btn-link btn-xs " title="Excluir" rel="tooltip" data-placement="top" data-toggle="modal" data-target="#excluirModal" th:attr="data-codigo=${titulo.codigo}">
+									<span ><img src="/imagens/excluir.png" width="25" height="25" id="icone-editar"></span>
+									</a>
+									
+									<a class = "btn btn-link btn-xs" title="Receber" rel="tooltip" data-placement="top"> 
+									<span  ><img src="/imagens/check.jpg" width="25" height="25" id="icone-editar"> </span>
 									</a>
 								</td>
 								
